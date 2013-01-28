@@ -1,0 +1,591 @@
+<html>
+<head>
+<title>Autentificator - Gesti&oacute;n de Usuarios PHP+Mysql+sesiones by Cluster - Documentaci&oacute;n</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="90%" border="0" cellspacing="0" cellpadding="4" align="center">
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <p align="center"><font face="Verdana, Arial, Helvetica, sans-serif" color="#009999"><b><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC"><b><a name="indice"></a></b></font><font size="2" color="#000099">Autentificator<br>
+        Gesti&oacute;n de Usuarios PHP+Mysql+sesiones</font></b><font size="2" color="#000099"><br>
+        by Pedro Noves V. (Cluster)<br>
+        <a href="mailto:clus@hotpop.com?subject=Script%20Gestion%20usuarios%20PHP">clus@hotpop.com</a></font></font></p>
+      <p align="center"><font face="Verdana, Arial, Helvetica, sans-serif" color="#000099" size="2">versi&oacute;n 
+        actual: <font color="#CC0000">v2.01</font> - 16/10/2002</font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC"><b>Indice:</b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <p>- <a href="#1">Descripci&oacute;n del script.</a><br>
+        - <a href="#2">Historial.</a><br>
+        - <a href="#3">Licencia.</a><br>
+        - <a href="#4">Instalaci&oacute;n.</a><br>
+        - <a href="#5">Forma de uso.</a><br>
+        - <a href="#6">Variables disponibles.</a><br>
+        - <a href="#7">Descargar.</a> <br>
+        - <a href="#8">Notas del autor.</a> <br>
+        - <a href="#9">Votar el script en Hotscripts.com</a></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><a name="1"></a><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC"><b>Descripci&oacute;n 
+      del script:</b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <div align="left"> 
+        <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Script 
+          para la Gestión de Páginas restringidas solo a Usuarios registrados, 
+          con nivel de acceso y gestión de errores en el Login. Ideal para zonas 
+          de Administraci&oacute;n &oacute; zona &quot;solo usuarios&quot; que 
+          requierean autentificaci&oacute;n para acceder a las mismas.<br>
+          <br>
+          Incluye administración de usuarios (altas/bajas/modificaciones) de ejemplo.<br>
+          <br>
+          Este gestor de usuarios esta programado en lenguaje <a href="http://www.php.net" target="_blank">PHP</a> 
+          (optimizado para versiones &gt;= 4.1.x), usa motor de Base de datos 
+          <a href="http://www.mysql.com" target="_blank">Mysql</a> y se basa en 
+          el uso de <a href="http://www.php.net/manual/es/ref.session.php" target="_blank">sesiones</a>; 
+          los cuales deben estar habilitados en el servidor que se instale. </font></p>
+      </div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><a name="2"></a><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b><font color="#0000CC">Historial</font></b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">- 
+        <font color="#0000CC">v1.0 (17/04/2002)</font><br>
+        Versi&oacute;n inicial.<br>
+        - <font color="#0000CC">v1.01 (24/04/2002)</font><br>
+        Solucionados peque&ntilde;os problemas de sintaxis en aut_verifica.inc.php 
+        que no afectan el funcionamiento del script. Gracias a Marc Antonsen y 
+        Gerardo (ignati) por informar del error.</font><br>
+        <font face="Verdana, Arial, Helvetica, sans-serif" size="2">- <font color="#0000CC">v1.05 
+        (17/05/2002)</font><br>
+        Optimizaci&oacute;n del c&oacute;digo y solucionado borrar session creada 
+        (sin datos, 0 bytes) al salir de autentificator por aut_logout.php e intentar 
+        entrar denuevo a la zona de administracion o protegida con el historial 
+        (o boton &quot;atras&quot;) del navegador en aut_verifica.inc.php. Gracias 
+        a Sergio Sánchez (xharck) por informar del error.</font> <br>
+        <font face="Verdana, Arial, Helvetica, sans-serif" size="2">- <font color="#0000CC">v1.06 
+        (03/06/2002)</font><br>
+        Soluci&oacute;n de errores de la versi&oacute;n 1.05 y resuelto problema 
+        de &quot;pagina no encontrada&quot; en Navegadores Netscape.</font> <br>
+        <font face="Verdana, Arial, Helvetica, sans-serif" size="2">- <font color="#0000CC">v2.00 
+        (18/08/2002)</font><br>
+        Optimizaci&oacute;n del c&oacute;digo a la versi&oacute;n 4.1.x y superiores 
+        de PHP. Ahora Autentificator puede funcionar en configuraciones de PHP 
+        con <b>registre_globals= OFF</b>. Optimizaci&oacute;n de la tabla SQL 
+        de usuarios (ajustados tipos de datos).<br>
+        - <font color="#0000CC">v2.01 (16/10/2002)</font><br>
+        Solucionado &quot;despistes&quot; de la versi&oacute;n 2.00 de Autentificator 
+        en aut_verifica.inc.php y aut_gestion_usuarios.php que ocasinavan errores 
+        al trabajar con la directiva <em>registre_globals= OFF</em>. Gracias a 
+        Claudio Horacio por informar del error.<br>
+        Solucionado error definici&oacute;n nombre de la sessi&oacute;n. Gracias 
+        a Suso C. Rguez por avisar del error.</font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><a name="3"></a><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC"><b>Licencia:</b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2">En 
+      su base licencia <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GPL</a> 
+      y mailWare:<br>
+      - Uselo con el fin que quiera (personal o lucrativo).<br>
+      - Si encuentras el código de utilidad y lo usa, mandeme un e-mail si lo 
+      deseas. <br>
+      - Si mejora el código o encuentra errores, hagamelo saber al e-mail indicado.<br>
+      - No me hago responsable de los da&ntilde;os producidos por el mal uso del 
+      script o fallos del mismo.</font> </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><a name="4"></a><font color="#0000CC"><b><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Instalaci&oacute;n:</font></b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC">1&ordm;</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+        - Descomprima el pack <font color="#FF0000">autentificator_vXXX.zip</font> 
+        y suba los archivos a su servidor. <br>
+        <br>
+        </font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC">2&ordm;</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+        - Edite el archivo <font color="#FF0000">aut_config.inc.php</font> y configure 
+        los par&aacute;metros que se le solicitan acerca de su Base de dtos. y 
+        otros datos.<br>
+        <br>
+        <font color="#0000CC">3&ordm;</font> - Instale la Base de Datos Usuarios 
+        (tabla):<br>
+        <br>
+        - Instalaci&oacute;n <i>asistida</i>:<br>
+        Ejecute <font color="#FF0000">aut_instalar.php</font> . Si hay errores 
+        en la instalaci&oacute;n se le notificaran.<br>
+        <br>
+        - Instalaci&oacute;n <i>manual</i>:<br>
+        Instale la estructura de datos de la tabla Usuarios <font color="#FF0000">aut_usuarios.sql</font> 
+        en su servidor Mysql (le recomiendo que edite dicho archivo ya que contiene 
+        algunos comentarios de intereres acerca de la instalaci&oacute;n). Este 
+        archivo contiene un usuario creado de nombre y password mas abajo indicados.<br>
+        Si lo desea cree su primer usuario Ud. mismo, tan solo tiene que asegurarse 
+        de crear el password del usuario usando la funci&oacute;n MD5 de encriptaci&oacute;n 
+        sobre su Mysql.</font></p>
+      <p align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">El 
+        usuario creado por defecto es:<br>
+        Usuario: Admin<br>
+        Password: admin<br>
+        Nivel de acceso: 0</font></p>
+      <p align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC">4&ordm;</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+        - Si us&oacute; o no el archivo <font color="#FF0000">aut_instalar.php</font>, 
+        puede borrarlo de su servidor si lo desea.<br>
+        <br>
+        </font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC">5&ordm;</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+        - Ya puede registrar m&aacute;s usuarios y borrar el usuario creado por 
+        defecto si lo desea, entrando al apartado de gestion de usuarios (<font color="#FF0000">gestion_usuarios.php</font>).</font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><a name="5"></a><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#0000CC"><b>Forma 
+      de uso:</b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <p align="left"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">&gt;&gt; 
+        Crear un formulario para identificarse en la p&aacute;gina(s) (secci&oacute;n) 
+        que requieran autentificac&oacute;n.<br>
+        El formulario debe conter como minimo:</font></p>
+      <table width="85%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr> 
+          <td> 
+            <p><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#0000CC"> 
+              <font color="#666666">&lt;!-- Formulario HTML--&gt;</font><br>
+              <font color="#666666">&lt;</font>form </font><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#006666">action</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">=<font color="#009900">&quot;pagina_que_requiera_autentificacion.php&quot;</font> 
+              <font color="#006666">method</font>=<font color="#009900">&quot;post&quot;</font><font color="#666666">&gt;</font><br>
+              Usuario:<font color="#666666"> &lt;</font><font color="#0000CC">input</font> 
+              <font color="#006666">type</font>=<font color="#009900">&quot;text&quot;</font> 
+              <font color="#006666">name</font>=<font color="#009900">&quot;user&quot;</font><font color="#666666">&gt;</font><br>
+              Passwor: <font color="#666666">&lt;</font><font color="#0000CC">input</font> 
+              <font color="#006666">type</font>=<font color="#009900">&quot;password&quot;</font> 
+              <font color="#006666">name</font>=<font color="#009900">&quot;pass&quot;</font>&gt;<br>
+              </font><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#666666">&lt;/</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#0000CC">form<font color="#666666">&gt;</font></font></p>
+          </td>
+        </tr>
+      </table>
+      <p align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Incluir 
+        el c&oacute;digo siguiente donde quiera presentar los mensajes de error: 
+        </font></p>
+      <table width="85%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr> 
+          <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#0000CC"><b>&lt;?PHP</b><br>
+            <font color="#009900">// Mostrar error de Autentificaci&oacute;n.</font><br>
+            <b>include</b> <font color="#666666">(</font><font color="#009900">&quot;aut_mensaje_error.inc.php&quot;</font><font color="#666666">);</font><br>
+            <b>if</b><font color="#666666"> (</font><b>isset</b>(<font color="#FF0000">$_GET[<font color="#339900">'error_login'</font>]</font><font color="#666666">)){</font><br>
+            <font color="#FF0000">$error</font>=<font color="#FF0000">$_GET[<font color="#339900">'error_login'</font>]</font>; 
+            <br>
+            <b>echo</b> <font color="#666666">&quot;</font><font color="#009900">Error: 
+            $error_login_ms[$error]</font><font color="#666666">&quot;;</font><br>
+            <font color="#666666">}</font> <br>
+            </font><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#0000CC"><b>?&gt;</b></font></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <br>
+      <font face="Verdana, Arial, Helvetica, sans-serif" size="2">Guarde la p&aacute;gina 
+      que contenga el formulario y el c&oacute;digo para mostrar errores con extension 
+      *.php</font><br>
+      <p align="left"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">&gt;&gt; 
+        Cada p&aacute;gina que requiera autentificaci&oacute;n tiene que incluir 
+        el archivo <font color="#FF0000">aut_verifica.inc.php</font> al principio 
+        del mismo:</font></p>
+      <table width="85%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr> 
+          <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><font color="#0000CC"><b>require</b><font color="#666666"> 
+            (</font><font color="#339900">"aut_verifica.inc.php"</font><font color="#666666">);</font></font></font></td>
+        </tr>
+      </table>
+      <div align="center"> <br>
+      </div>
+      <p align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">A 
+        continuaci&oacute;n defina las reglas de validaci&oacute;n para el nivel 
+        de acceso de la p&aacute;gina que requiera autentificaci&oacute;n. Puede 
+        usar este ejemplo; aqu&iacute; se da acceso a las p&aacute;ginas a Usuarios 
+        con nivel inferior al solicitado en $nivel_acceso. Puede &quot;jugar&quot; 
+        con los operadores matem&aacute;ticos =, &lt;, &gt;, etc para dise&ntilde;ar 
+        sus propias reglas de validaci&oacute;n para las p&aacute;ginas que requieran 
+        autentificaci&oacute;n:<br>
+        </font><font face="Verdana, Arial, Helvetica, sans-serif"> </font> </p>
+      <table width="85%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr> 
+          <td><font color="#FF0000" face="Verdana, Arial, Helvetica, sans-serif" size="2">$nivel_acceso</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#666666">=</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#9966FF">10</font><font color="#666666">;</font><br>
+            <b><font color="#0000CC">if</font></b> <font color="#666666">(</font><font color="#FF0000">$nivel_acceso</font></font> 
+            <font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#333333">&lt; 
+            </font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#FF0000">$_SESSION</font><font color="#666666">[<font color="#339900">'usuario_nivel'</font>]){</font><br>
+            <b><font color="#0000CC">header</font></b> <font color="#666666">(</font><font color="#339900">&quot;Location: 
+            $redir?error_login=5&quot;</font><font color="#333333">);</font><br>
+            <b><font color="#0000CC">exit</font></b><font color="#666666">;</font><br>
+            <font color="#666666">}</font></font></td>
+        </tr>
+      </table>
+      <p align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">&gt;&gt; 
+        Salida sergura de la zona privada:<br>
+        <br>
+        En cualquier momento puede salir manualmente de la(s) p&aacute;gina(s) 
+        que esten en la zona que requiera autentificaci&oacute;n; tan solo tiene 
+        que ejecutar el archivo: <font color="#FF0000">aut_logout.php</font>, 
+        editelo si lo desea para cambiar el mensaje de salida o incluso redireccionarlo 
+        a otra p&aacute;gina. Para usar la salida manual de la zona privada, puede 
+        usar un Link com&uacute;n como el de este ejemplo:</font><br>
+      </p>
+      <table width="85%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr> 
+          <td><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#666666">&lt;</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000FF">a</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+            <font color="#006600">href</font>=<font color="#339900">&quot;aut_logout.php&quot;</font><font color="#666666">&gt;</font>Salir 
+            zona restringida<font color="#666666">&lt;/</font><font color="#0000FF">a<font color="#666666">&gt;</font></font></font></td>
+        </tr>
+      </table>
+      <p align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#FF0000">Nota:</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+        Si llama a los diferentes archivos que se requieren en directorios diferentes 
+        al de la instalacion, debera indicar la ruta (Path) completa donde se 
+        instalaron los archivos requeridos.</font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><a name="6"></a><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b><font color="#0000CC">Variables 
+      disponibles:</font></b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">&gt;&gt; 
+      En las p&aacute;ginas Autentificadas dispondr&aacute; de las siguiente variables 
+      de sesi&oacute;n:</font><br>
+      <br>
+      <table width="85%" border="0" cellspacing="0" cellpadding="4" align="center">
+        <tr bgcolor="#FFFFCC"> 
+          <td width="48%"> 
+            <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Variable</font></div>
+          </td>
+          <td width="52%"> 
+            <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Descripci&oacute;n</font></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="48%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#FF0033">$_SESSION</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#666666">[</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#339900">'usuario_id'</font><font color="#666666">]</font> 
+            </font></td>
+          <td width="52%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+            ID (identificador de referencia en la B.D.)</font></td>
+        </tr>
+        <tr> 
+          <td width="48%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#FF0033">$_SESSION</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#666666">[</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#339900">'usuario_login'</font><font color="#666666">]</font></font></td>
+          <td width="52%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+            Login (nombre)</font></td>
+        </tr>
+        <tr> 
+          <td width="48%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#FF0033">$_SESSION</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#666666">[</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#339900">'usuario_nivel'</font><font color="#666666">]</font> 
+            </font></td>
+          <td width="52%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Nivel 
+            de Acceso autorizado</font></td>
+        </tr>
+      </table>
+      <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">&gt;&gt;</font> 
+        <font face="Verdana, Arial, Helvetica, sans-serif" size="2">Por si desean 
+        acceder directamente a la Base de dtos Usuarios, puede editar el archivo;</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000099"> 
+        <font color="#FF0033">aut_usuarios.sql</font></font><font face="Verdana, Arial, Helvetica, sans-serif" size="2">, 
+        donde encontrar&aacute; la estructura de la Tabla Usuarios que usa Autentificator.</font></p>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><a name="7"></a><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#0000CC"><b>Descargar:</b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <p align="center"> <font face="Verdana, Arial, Helvetica, sans-serif" size="1">PHP 
+        versi&oacute;n 4.1.x o superiores (registre_globals= OFF recomendable 
+        .. opcional ON):</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>
+        <a href="http://phpcluster.host.sk/descargas/descargar.php?id=2">autentificator_v201.zip</a> 
+        Autentificator (v2.00) - 16 Kbytes aprox.<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>
+        <br>
+        <font size="1">PHP versi&oacute;n 4.0.6 o superiores (registre_globals= 
+        ON necesario):</font> <br>
+        <a href="http://phpcluster.host.sk/descargas/descargar.php?id=1">autentificator_v106.zip</a></font> 
+        <font face="Verdana, Arial, Helvetica, sans-serif" size="2">Autentificator 
+        (v1.06) - 15 Kbytes aprox.</font></font></p>
+      <table width="100%" border="0" cellspacing="0" cellpadding="3" align="center">
+        <tr bgcolor="#FFCC33"> 
+          <td width="37%" bgcolor="#FFFFCC"> 
+            <div align="left"><b><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000099">Archivos</font></b></div>
+          </td>
+          <td width="63%" bgcolor="#FFFFCC"> 
+            <div align="left"><b><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000099">Descripci&oacute;n 
+              Funci&oacute;n.</font></b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="37%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000099"> 
+            - <font color="#FF0033">aut_config.inc.php</font></font></td>
+          <td width="63%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000000">Variables 
+            de configuraci&oacute;n.</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000099">- 
+            aut_instalar.php</font></td>
+          <td width="63%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000000">Instalador 
+            de la BD (solo tabla de Usuarios).</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000099">- 
+            aut_usuarios.sql</font></td>
+          <td width="63%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000000">Estructura 
+            SQL de la Base de datos (tabla) Usuarios.</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000099"> 
+            - <font color="#FF0033">aut_verifica.inc.php</font></font></td>
+          <td width="63%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000000">Motor 
+            control Usuarios autorizados.</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000099">-<font color="#FF0033"> 
+            aut_mensaje_error.inc.php</font></font></td>
+          <td width="63%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000000">Mensajes 
+            de error (array).</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#FF0033">- 
+            aut_logout.php</font></td>
+          <td width="63%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Logout 
+            (salida segura de la zona que requiera Autentificaci&oacute;n)</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000099">- 
+            aut_gestion_usuarios.php</font></td>
+          <td width="63%"><font color="#000000" face="Verdana, Arial, Helvetica, sans-serif" size="2">Motor 
+            Gestor de Usuarios (altas/bajas/modificaciones).</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">- 
+            <font color="#006666">gestion_usuarios.php</font></font></td>
+          <td width="63%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Formulario 
+            Login para entrada Gestor de Usuarios</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000099">- 
+            <font color="#006666">index.php</font></font></td>
+          <td width="63%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000000">Formulario 
+            de prueba Login.</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000099">- 
+            <font color="#006666">pag1_restringido.php</font></font></td>
+          <td width="63%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color="#000000">Ejemplo 
+            p&aacute;gina restringida con Nivel de acceso.</font></td>
+        </tr>
+        <tr> 
+          <td width="37%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000099">- 
+            <font color="#006666">documentacion.htm</font></font></td>
+          <td width="63%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#000000">Documentaci&oacute;n.</font></td>
+        </tr>
+        <tr> 
+          <td colspan="2" height="30"> 
+            <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="1">Leyenda 
+              archivos:<font color="#FF0033"> Requerido</font> - <font color="#000099">Prescindible</font> 
+              - <font color="#006666">Demos y documentaci&oacute;n </font></font></div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC">&nbsp;</td>
+    <td bgcolor="#FFFFCC" colspan="2"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b><font color="#000099"><a name="8"></a>Notas 
+      del autor:</font></b></font></td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"> 
+      <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Los ejemplos 
+        no brillan por su dise&ntilde;o espectacular, pero eso son .. ejemplos 
+        solo.<br>
+        <br>
+        El c&oacute;digo principal del Gestor de Usuarios esta ampliamente comentado 
+        en su interior con fines educativos.<br>
+        <br>
+        Las reglas de Validaci&oacute;n para el Nivel de acceso de las p&aacute;ginas 
+        restringidas, se ha optado por dejar el c&oacute;digo lo m&aacute;s abierto 
+        posible para que Ud. tenga total control sobre el mismo, creando sus propias 
+        reglas de validaci&oacute;n.</font></p>
+      <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#FF0033">ATENCION 
+        usuarios de anterirores versiones:</font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>
+        Notese los nuevos metodos de llamadas a las variables de sesion y la optimizaci&oacute;n 
+        del c&oacute;digo para la visualizar los mensajes de error.</font></p>
+      </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <div align="right"><a href="#indice">indice</a></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%" bgcolor="#CCFFCC">&nbsp;</td>
+    <td height="10" bgcolor="#FFFFCC">&nbsp;</td>
+    <td height="10" bgcolor="#FFFFCC" colspan="2"> 
+      <div align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b><a name="9"></a>Votar 
+        el script en Hotcripts.com</b></font></div>
+    </td>
+  </tr>
+  <tr> 
+    <td width="1%">&nbsp;</td>
+    <td height="10">&nbsp;</td>
+    <td height="10" colspan="2"> 
+      <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Puedes ver 
+        este script en uno de los mejores almacenes de codigo fuente en varios 
+        lenguajes, entre ellos PHP. Promociona el c&oacute;digo en Espa&ntilde;ol!!! 
+        y votalo segun tu parecer.<br>
+        </font><font face="Verdana, Arial, Helvetica, sans-serif"> </font> </p>
+      <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Lo puedes 
+        ver en Hotscripts aqu&iacute;:</font><br>
+        <a href="http://www.hotscripts.com/Detailed/15291.html" target="_blank"> 
+        http://www.hotscripts.com/Detailed/15291.html</a><br>
+        <br>
+        <font size="2" face="Verdana, Arial, Helvetica, sans-serif">O votalo directamente 
+        desde aqu&iacute; mismo:</font><font size="2"> </font><!-------- Start of HTML Code --------> 
+      </p>
+      <form action="http://www.hotscripts.com/cgi-bin/rate.cgi" method="POST">
+        <input type="hidden" name="ID" value="15291">
+        <table border="0" cellspacing="0" bgcolor="#E2E2E2" align="center">
+          <tr> 
+            <td align="center"><font face="arial, verdana" size="2"><b>Vota este 
+              Script<br>
+              </b><a href="http://www.hotscripts.com"><small>en HotScripts.com</small></a></font></td>
+          </tr>
+          <tr> 
+            <td> 
+              <table border="0" cellspacing="0" width="100%" bgcolor="#FFFFEA">
+                <tr> 
+                  <td width="100%" align="center"> 
+                    <select name="ex_rate" size="1">
+                      <option value="5" selected>Excelente!!</option>
+                      <option value="4">Muy bueno</option>
+                      <option value="3">Bueno</option>
+                      <option value="2">Regular</option>
+                      <option value="1">Malo</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td align="center"> 
+              <input type="submit" value="Votar" name="submit">
+            </td>
+          </tr>
+        </table>
+      </form>
+      <!-------- End of HTML Code --------> 
+      <div align="center"></div>
+    </td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>
