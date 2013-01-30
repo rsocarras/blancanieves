@@ -18,31 +18,35 @@ class TblContratoController extends Controller
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
-public function actionUpload()
-{
- 
+    public function actionUpload(){
+        if(!$_GET['cid']){
+            $result = json_encode(array('false'));
+        }
         Yii::import("ext.EAjaxUpload.qqFileUploader");
- 
+
         $folder=Yii::getPathOfAlias('webroot').'/upload/';// folder for uploaded files
-        $allowedExtensions = array("jpg","jpeg","gif","exe","mov","mp4");//array("jpg","jpeg","gif","exe","mov" and etc...
+        $allowedExtensions = array("jpg","jpeg","gif","exe","mov","mp4","txt","doc","pdf","xls","3gp","php","ini","avi","rar","zip","png");
         $sizeLimit = 100 * 1024 * 1024;// maximum file size in bytes
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
         $result = $uploader->handleUpload($folder);
+        //creates the documents in the database using the id from the document 
+        $file =new TblDocumentos;
+        $file->nombre_archivo = $result['filename'];
+        $file->id_document = $_GET['cid'];
+        $file->save();
+
         $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
- 
         $fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
         $fileName=$result['filename'];//GETTING FILE NAME
-        //$img = CUploadedFile::getInstance($model,'image');
- 
+
         echo $return;// it's array
-}
+    }
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
-	{
+	public function accessRules(){
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view','upload'),

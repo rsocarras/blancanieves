@@ -24,13 +24,14 @@ $this->menu=array(
 array(
         'id'=>'uploadFile',
         'config'=>array(
-               'action'=>Yii::app()->createUrl('tblcontrato/upload'),
-               'allowedExtensions'=>array("jpg","jpeg","gif","exe","mov","mp4","txt","doc","pdf","xls","3gp","php","ini","avi","rar","zip","png"),//array("jpg","jpeg","gif","exe","mov" and etc...
+               'action'=>Yii::app()->createUrl('tblContrato/upload'),
+               'allowedExtensions'=>array("jpg","jpeg","gif","exe","mov","mp4","txt","doc","pdf","xls","3gp","php","ini","avi","rar","zip","png"),
                'sizeLimit'=>1000*1024*1024,// maximum file size in bytes
                'minSizeLimit'=>1*1024,
                'auto'=>true,
                'multiple' => true,
-               'onComplete'=>"js:function(id, fileName, responseJSON){ alert(fileName); }",
+               'onSubmit'=>'js:function(file, ext){  this.params.cid = ' . $_GET['id'] . ';}',
+               'onComplete'=>"js:function(id, fileName, responseJSON){ } ",
                'messages'=>array(
                                  'typeError'=>"{file} has invalid extension. Only {extensions} are allowed.",
                                 'sizeError'=>"{file} is too large, maximum file size is {sizeLimit}.",
