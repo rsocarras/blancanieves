@@ -29,15 +29,16 @@ class TblContratoController extends Controller
         $sizeLimit = 100 * 1024 * 1024;// maximum file size in bytes
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
         $result = $uploader->handleUpload($folder);
-        //creates the documents in the database using the id from the document 
-        $file =new TblDocumentos;
-        $file->nombre_archivo = $result['filename'];
-        $file->id_document = $_GET['cid'];
-        $file->save();
-
         $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         $fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
         $fileName=$result['filename'];//GETTING FILE NAME
+
+        //creates the documents in the database using the id from the document
+        $file =new TblDocumentos;
+        $file->nombre_archivo = $result['filename'];
+        $file->id_contrato = $_GET['cid'];
+        $file->tamanio = $fileSize;
+        $file->save();
 
         echo $return;// it's array
     }

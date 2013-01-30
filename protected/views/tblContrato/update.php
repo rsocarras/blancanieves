@@ -29,6 +29,7 @@ array(
                'sizeLimit'=>1000*1024*1024,// maximum file size in bytes
                'minSizeLimit'=>1*1024,
                'auto'=>true,
+               'encoding' => 'multipart',
                'multiple' => true,
                'onSubmit'=>'js:function(file, ext){  this.params.cid = ' . $_GET['id'] . ';}',
                'onComplete'=>"js:function(id, fileName, responseJSON){ } ",
