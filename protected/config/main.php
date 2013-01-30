@@ -57,7 +57,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=medapp',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'magic',
+			'password' => 'root',
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(

@@ -36,6 +36,7 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('Fecha De Final')); ?>:</b>
 	<?php echo CHtml::encode($data->end_date); ?>
 	<br />
+	
 <?php /*
 <b><?php echo CHtml::encode($data->getAttributeLabel('tipoID')); ?>:</b>
 	<?php echo CHtml::encode($data->tipoID); ?>

@@ -41,4 +41,20 @@ $this->menu=array(
 		'user_c',
 		'user_m',
 	),
-)); ?>
+)); 
+$criteria = new CDbCriteria;
+$criteria->select = 'id, nombre_archivo,tamanio'; // select fields which you want in output
+$criteria->condition = " id_contrato = '".$_GET['id']."' ";
+$documents = TblDocumentos::model()->findAll($criteria);
+$documents  = CHtml::listData($documents, 'id', 'nombre_archivo' );
+if(is_array($documents)){
+    echo "<h4>Archivos</h4>";
+    echo "<table>";
+    foreach($documents as $d => $c){
+        echo "<tr> ";
+        echo "<td>$d</td><td>$c</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+?>
