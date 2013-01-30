@@ -70,13 +70,14 @@ class TblDocumentos extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_contrato' => 'Id Contrato',
+			'titulo' => 'titulo',
 			'descripcion' => 'Descripcion',
 			'contenido' => 'Contenido',
 			'tamanio' => 'Tamanio',
 			'tipo' => 'Tipo',
 			'nombre_archivo' => 'Nombre Archivo',
 			'tamanio_unidad' => 'Tamanio Unidad',
+			'id_contrato' => 'ID',
 		);
 	}
 
