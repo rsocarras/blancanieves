@@ -118,7 +118,7 @@ class TblUser extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('nombre',$this->nombre,true);
-		$criteria->compare('departamento',$this->departamento,true);
+		$criteria->compare('departamento',$this->email,true);
 		$criteria->compare('session',$this->session,true);
 
 		return new CActiveDataProvider($this, array(
