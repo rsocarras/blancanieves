@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 
 );
 $this->menu=array(
-	array('label'=>'List TblContrato', 'url'=>array('index')),
-	array('label'=>'Create TblContrato', 'url'=>array('create')),
-	array('label'=>'View TblContrato', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage TblContrato', 'url'=>array('admin')),
+	array('label'=>'Listar Contratos', 'url'=>array('index')),
+	array('label'=>'Crear Contrato', 'url'=>array('create')),
+	array('label'=>'Ver Contrato', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Administrar Contrato', 'url'=>array('admin')),
 );
 ?>
 
@@ -20,7 +20,22 @@ $this->menu=array(
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 <?php
- $this->widget('ext.EAjaxUpload.EAjaxUpload',
+$criteria = new CDbCriteria;
+$criteria->select = 'id, nombre_archivo,tamanio'; // select fields which you want in output
+$criteria->condition = " id_contrato = '".$_GET['id']."' ";
+$documents = TblDocumentos::model()->findAll($criteria);
+$documents  = CHtml::listData($documents, 'id', 'nombre_archivo' );
+if(is_array($documents)){
+    echo "<h4>Archivos</h4>";
+    echo "<table>";
+    foreach($documents as $d => $c){
+        echo "<tr> ";
+        echo "<td>$d</td><td>$c</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+$this->widget('ext.EAjaxUpload.EAjaxUpload',
 array(
         'id'=>'uploadFile',
         'config'=>array(
